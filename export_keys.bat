@@ -1,8 +1,9 @@
 @echo off
 cls
 set /p original_path=Enter path of your old wallet (.keys file): 
-set /p wallet_pass=Enter wallet password: 
-if /I "%wallet_pass%"=="" goto wallet_no_pass
+set /p wallet_pass_original=Enter wallet password: 
+if /I "%wallet_pass_original%"=="" goto wallet_no_pass
+set "wallet_pass=!wallet_pass_original:&=^&!"
 copy %original_path% old_wallet.keys
 echo @echo off >run_forknote.bat
 echo "windows_bin/forknote_simplewallet.exe" --config-file=config/inf.conf --wallet-file=old_wallet.keys --password=%wallet_pass% >>run_forknote.bat
